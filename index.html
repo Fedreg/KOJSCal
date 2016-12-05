@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<head>
+    <title>KOJS Calendar Component</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.2/milligram.min.css">
+</head>
+<body>
+    <div id="wrapper">
+        <div>
+            <h1 data-bind="text: month">month</h1>
+        </div>
+        <div style="display: block;">
+            <button onclick="minusMonth();" class="button-clear" id="l-arrow">-</button>
+            <button onclick="plusMonth();" class="button-clear" id="r-arrow">+</button>
+        </div>
+        <div style="width: 75%; display: block; justify-content: center;">
+            <table id="table">
+                <colgroup>
+                    <col style="background-color: #eee">
+                    <col style="background-color: #fff">
+                    <col style="background-color: #fff">
+                    <col style="background-color: #fff">
+                    <col style="background-color: #fff">
+                    <col style="background-color: #fff">
+                    <col style="background-color: #eee">
+                </colgroup>
+                <tr>
+                    <th>Su</th>
+                    <th>M</th>
+                    <th>T</th>
+                    <th>W</th>
+                    <th>Th</th>
+                    <th>F</th>
+                    <th>Sa</th>
+                </tr>
+                <tr>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                </tr>
+                <tr>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                </tr>
+                <tr>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                </tr>
+                <tr>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                </tr>
+                <tr>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                    <td>Xi</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<style>
+    #wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 75%;
+    }
+
+    .button-clear {
+        width: 20px;
+        font-size: 2rem;
+    }
+</style>
+<script>
+
+var index = 0;
+var months = ["January","February","March","April","May","July","August","September","Ocotober","November","December"];
+var rArrow = document.getElementById("r-arrow");
+var lArrow = document.getElementById("l-arrow");
+var daysPerMonth =
+    { "January" : 31
+    , "February" : 28
+    , "March" : 31
+    , "April" : 30
+    , "May" : 31
+    , "June" : 30
+    , "June" : 30
+    , "July" : 31
+    , "September" : 30
+    , "October" : 31
+    , "November" : 30
+    , "December" : 31
+}
+
+//displays view
+function AppViewModel() {
+    this.month = ko.observable(currentMonth(index));
+    this.calDays = ko.observable(renderMonths(months));
+}
+
+//returns current month based on index value
+var currentMonth = function(index) {
+    console.log(months[index]);
+    return months[index];
+}
+
+//forward 1 month
+function plusMonth() {
+    index++;
+    currentMonth(index);
+    console.log(index, months[index]);
+    }
+
+//backwards 1 month
+function minusMonth() {
+    index--;
+    currentMonth(index);
+    console.log(index, months[index]);
+}
+
+//draws days of month to calendar
+function renderMonths(months) {
+    var table = document.getElementById('table').innerHTML += '<td>calDays</td>';
+}
+
+//initializes Knockout
+ko.applyBindings(new AppViewModel());
+
+</script>
+</html>
