@@ -7,13 +7,13 @@
 <body>
     <div id="wrapper">
         <div>
-            <h1 data-bind="text: month">month</h1>
+            <h1 data-bind="text: date"></h1>
         </div>
         <div style="display: block;">
-            <button onclick="minusMonth();" class="button-clear" id="l-arrow">-</button>
-            <button onclick="plusMonth();" class="button-clear" id="r-arrow">+</button>
+            <button data-bind="click : minusMonth" class="button-clear" id="l-arrow">-</button>
+            <button data-bind="click : plusMonth" class="button-clear" id="r-arrow">+</button>
         </div>
-        <div style="width: 75%; display: block; justify-content: center;">
+        <div style="width: 100%; text-align: center;">
             <table id="table">
                 <colgroup>
                     <col style="background-color: #eee">
@@ -84,10 +84,12 @@
 </body>
 <style>
     #wrapper {
+        padding: 12%;
+        text-align: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 75%;
+        width: 100%;
     }
 
     .button-clear {
@@ -97,58 +99,52 @@
 </style>
 <script>
 
-var index = 0;
-var months = ["January","February","March","April","May","July","August","September","Ocotober","November","December"];
-var rArrow = document.getElementById("r-arrow");
-var lArrow = document.getElementById("l-arrow");
-var daysPerMonth =
-    { "January" : 31
-    , "February" : 28
-    , "March" : 31
-    , "April" : 30
-    , "May" : 31
-    , "June" : 30
-    , "June" : 30
-    , "July" : 31
-    , "September" : 30
-    , "October" : 31
-    , "November" : 30
-    , "December" : 31
-}
+var d = new Date();
+var m = d.getMonth();
+var y = d.getFullYear();
 
-//displays view
 function AppViewModel() {
-    this.month = ko.observable(currentMonth(index));
-    this.calDays = ko.observable(renderMonths(months));
-}
+    this.months = ko.observableArray(["January","February","March","April","May","June","July","August","September","Ocotober","November","December"]);
+    this.year = ko.observable(y);
+    this.index = ko.observable(m);
+    this.date = ko.pureComputed(function() {
+        var a = this.index();
+        return this.months()[a] + " | " + this.year();
+    }, this);
 
-//returns current month based on index value
-var currentMonth = function(index) {
-    console.log(months[index]);
-    return months[index];
-}
+    this.plusMonth = function() {
+        var addIndex = this.index();
+        var addYear = this.year();
+        if (addIndex < 11)
+        this.index(addIndex + 1);
 
-//forward 1 month
-function plusMonth() {
-    index++;
-    currentMonth(index);
-    console.log(index, months[index]);
+        if (addIndex === 11) {
+            this.year(addYear + 1)
+            this.index(addIndex = 0);
+            console.log(addIndex); 
+        }
+    };
+
+    this.minusMonth = function() {
+        var minusIndex = this.index();
+        var minusYear = this.year();
+        if (minusIndex > 0)
+        this.index(minusIndex - 1);
+
+        if (minusIndex === 0) {
+            this.year(minusYear - 1);
+            this.index(minusIndex = 11);
+            console.log(minusIndex);
+        }
     }
 
-//backwards 1 month
-function minusMonth() {
-    index--;
-    currentMonth(index);
-    console.log(index, months[index]);
 }
 
-//draws days of month to calendar
-function renderMonths(months) {
-    var table = document.getElementById('table').innerHTML += '<td>calDays</td>';
-}
 
 //initializes Knockout
 ko.applyBindings(new AppViewModel());
 
 </script>
 </html>
+
+
