@@ -7,7 +7,6 @@
 <body>
     <div id="wrapper">
         <div>
-            <h1 data-bind="text: index"></h1>
             <h1 data-bind="text: date"></h1>
             <h1 data-bind="text: daysOfMonth"></h1>
         </div>
@@ -62,14 +61,12 @@
         flex-wrap: wrap
     }
 
-
     #daydiv div {
         flex-basis: auto;
         width: 14%;
         height: 50px;
         display: inline-block;
     }
-
 
     #table {
         display: block;
@@ -84,34 +81,31 @@
         width: 20px;
         font-size: 2rem;
     }
+
 </style>
 
 
-<script type="text/html" id="calendar-template">
-    <tr>
-        <td data-bind="text: months"><td>
-    <tr>
-
-</script>
-
 <script>
 
-var d = new Date();
-var m = d.getMonth();
-var y = d.getFullYear();
 
+var d = new Date();
+
+//main view model
 function AppViewModel() {
     this.months = ko.observableArray(["January","February","March","April","May","June","July","August","September","Ocotober","November","December"]);
-    this.year = ko.observable(y);
-    this.index = ko.observable(m);
+    this.year = ko.observable(d.getFullYear());
+    this.index = ko.observable(d.getMonth());
     this.days = ko.observableArray([]);
-    //this.days.push(31);
 
+
+    //sets the date to display on top of calendar
     this.date = ko.pureComputed(function() {
         var a = this.index();
         return this.months()[a] + " | " + this.year();
     }, this);
 
+
+    //determines how many days in each month, + how many days append and prepend each month.  Pushes those to the this.days array for rendering
     this.daysOfMonth = ko.pureComputed(function() {
         var month = this.index() + 1;
         var year = this.year();
@@ -119,11 +113,9 @@ function AppViewModel() {
         var startDay = new Date(year, month, 1).getDay();
         
         var endDay = new Date(year, month, numberOfDays).getDay();
-        console.log(startDay, endDay);
 
         //iterate and push the number of days that prepend current month
         for (var d = numberOfDays - startDay; d < numberOfDays ; d++) {
-
             this.days.push(d);
         }
 
@@ -138,39 +130,41 @@ function AppViewModel() {
         }
     }, this);
         
-
-
+    
+    //increments month when "+ button" is pushed. resets days array
     this.plusMonth = function() {
         var addIndex = this.index();
         var addYear = this.year();
         this.days([]);
 
-        if (addIndex < 11)
-        this.index(addIndex + 1);
+        if (addIndex < 11) {
+            this.index(addIndex + 1);
+        }
 
         if (addIndex === 11) {
             this.year(addYear + 1)
             this.index(addIndex = 0);
         }
+        console.log(addIndex);
 
     };
 
+    //decrements month when "- button" is pushed. resets days array
     this.minusMonth = function() {
         var minusIndex = this.index();
         var minusYear = this.year();
         this.days([]);
         
-        if (minusIndex > 0)
-        this.index(minusIndex - 1);
+        if (minusIndex > 0) {
+            this.index(minusIndex - 1);
+        }
 
         if (minusIndex === 0) {
             this.year(minusYear - 1);
             this.index(minusIndex = 11);
         }
-
+        console.log(minusIndex);
     }
-
-
 }
 
 
