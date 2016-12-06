@@ -118,10 +118,11 @@ function AppViewModel() {
         var numberOfDays = new Date(year, month, 0).getDate();
         var startDay = new Date(year, month, 1).getDay();
         
-        console.log(startDay);
+        var endDay = new Date(year, month, numberOfDays).getDay();
+        console.log(startDay, endDay);
 
         //iterate and push the number of days that prepend current month
-        for (var d = numberOfDays - startDay; d < numberOfDays + 1; d++) {
+        for (var d = numberOfDays - startDay; d < numberOfDays ; d++) {
 
             this.days.push(d);
         }
@@ -129,6 +130,11 @@ function AppViewModel() {
         //iterate and push the number of days in the month
         for (var i = 1; i < numberOfDays + 1; i++) {
             this.days.push(i);
+        }
+
+        //iterate and push the number of days that append current month
+        for (var l = 1; l < (7 - endDay); l++) {
+            this.days.push(l);
         }
     }, this);
         
