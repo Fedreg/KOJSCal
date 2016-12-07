@@ -7,6 +7,7 @@
 <body>
     <div id="wrapper">
         <div>
+            <h1 data-bind="text: index"></h1>
             <h1 data-bind="text: date"></h1>
             <h1 data-bind="text: daysOfMonth"></h1>
         </div>
@@ -107,15 +108,15 @@ function AppViewModel() {
 
     //determines how many days in each month, + how many days append and prepend each month.  Pushes those to the this.days array for rendering
     this.daysOfMonth = ko.pureComputed(function() {
-        var month = this.index() + 1;
+        var month = this.index();
         var year = this.year();
-        var numberOfDays = new Date(year, month, 0).getDate();
+        var numberOfDays = new Date(year, month + 1, 0).getDate();
         var startDay = new Date(year, month, 1).getDay();
-        
         var endDay = new Date(year, month, numberOfDays).getDay();
 
+        console.log(numberOfDays, startDay, endDay);
         //iterate and push the number of days that prepend current month
-        for (var d = numberOfDays - startDay; d < numberOfDays ; d++) {
+        for (var d = numberOfDays - startDay; d < numberOfDays; d++) {
             this.days.push(d);
         }
 
@@ -145,7 +146,6 @@ function AppViewModel() {
             this.year(addYear + 1)
             this.index(addIndex = 0);
         }
-        console.log(addIndex);
 
     };
 
@@ -163,7 +163,6 @@ function AppViewModel() {
             this.year(minusYear - 1);
             this.index(minusIndex = 11);
         }
-        console.log(minusIndex);
     }
 }
 
