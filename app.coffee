@@ -3,7 +3,20 @@ d = new Date()
 
 #main view model
 AppViewModel = ->
-    @months = ko.observableArray(["January","February","March","April","May","June","July","August","September","Ocotober","November","December"])
+    @months = ko.observableArray([
+        'January'
+        'February'
+        'March'
+        'April'
+        'May'
+        'June'
+        'July'
+        'August'
+        'September'
+        'Ocotober'
+        'November'
+        'December'
+    ])
     @year = ko.observable(d.getFullYear())
     @index = ko.observable(d.getMonth())
     @days = ko.observableArray([])
@@ -24,10 +37,10 @@ AppViewModel = ->
         endDay = new Date(year, month, numberOfDays).getDay()
 
         #iterate and push the number of days that prepend current month
-        d = numberOfDays - startDay
-        while d < numberOfDays
-            @days.push d
-            d++
+        a = numberOfDays - startDay
+        while a < numberOfDays
+            @days.push a
+            a++
 
         #iterate and push the number of days in the month
         i = 1
@@ -45,30 +58,26 @@ AppViewModel = ->
     
     #increments month when "+ button" is pushed. resets days array
     @plusMonth =  ->
-        addIndex = @index()
-        addYear = @year()
         @days []
 
-        if addIndex < 11
-            @index addIndex + 1
+        if @index() < 11
+            @index(@index() + 1)
 
-        if addIndex == 11
-            @year addYear + 1
-            @index addIndex = 0
+        else if @index() == 11
+            @year(@year() + 1)
+            @index(0)
         return
 
     #decrements month when "- button" is pushed. resets days array
     @minusMonth =  ->
-        minusIndex = @index()
-        minusYear = @year()
         @days []
         
-        if minusIndex > 0
-            @index minusIndex - 1
+        if @index() > 0
+            @index(@index() - 1)
 
-        if minusIndex == 0
-            @year minusYear - 1
-            @index minusIndex = 11
+        else if @index() == 0
+            @year(@year() - 1)
+            @index(11)
         return
     
     return

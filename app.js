@@ -5,7 +5,7 @@
   d = new Date();
 
   AppViewModel = function() {
-    this.months = ko.observableArray(["January", "February", "March", "April", "May", "June", "July", "August", "September", "Ocotober", "November", "December"]);
+    this.months = ko.observableArray(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Ocotober', 'November', 'December']);
     this.year = ko.observable(d.getFullYear());
     this.index = ko.observable(d.getMonth());
     this.days = ko.observableArray([]);
@@ -15,16 +15,16 @@
       return this.months()[a] + ' | ' + this.year();
     }), this);
     this.daysOfMonth = ko.computed((function() {
-      var endDay, i, l, month, numberOfDays, startDay, year;
+      var a, endDay, i, l, month, numberOfDays, startDay, year;
       month = this.index();
       year = this.year.peek();
       numberOfDays = new Date(year, month + 1, 0).getDate();
       startDay = new Date(year, month, 1).getDay();
       endDay = new Date(year, month, numberOfDays).getDay();
-      d = numberOfDays - startDay;
-      while (d < numberOfDays) {
-        this.days.push(d);
-        d++;
+      a = numberOfDays - startDay;
+      while (a < numberOfDays) {
+        this.days.push(a);
+        a++;
       }
       i = 1;
       while (i < numberOfDays + 1) {
@@ -38,29 +38,21 @@
       }
     }), this);
     this.plusMonth = function() {
-      var addIndex, addYear;
-      addIndex = this.index();
-      addYear = this.year();
       this.days([]);
-      if (addIndex < 11) {
-        this.index(addIndex + 1);
-      }
-      if (addIndex === 11) {
-        this.year(addYear + 1);
-        this.index(addIndex = 0);
+      if (this.index() < 11) {
+        this.index(this.index() + 1);
+      } else if (this.index() === 11) {
+        this.year(this.year() + 1);
+        this.index(0);
       }
     };
     this.minusMonth = function() {
-      var minusIndex, minusYear;
-      minusIndex = this.index();
-      minusYear = this.year();
       this.days([]);
-      if (minusIndex > 0) {
-        this.index(minusIndex - 1);
-      }
-      if (minusIndex === 0) {
-        this.year(minusYear - 1);
-        this.index(minusIndex = 11);
+      if (this.index() > 0) {
+        this.index(this.index() - 1);
+      } else if (this.index() === 0) {
+        this.year(this.year() - 1);
+        this.index(11);
       }
     };
   };
