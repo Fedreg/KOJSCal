@@ -8,7 +8,6 @@
     <div id="wrapper">
         <div>
             <h1 data-bind="text: date"></h1>
-            <h1 data-bind="text: daysOfMonth"></h1>
         </div>
         <div style="display: block;">
             <button data-bind="click : minusMonth" class="button-clear" id="l-arrow">-</button>
@@ -104,11 +103,10 @@ function AppViewModel() {
         return this.months()[a] + " | " + this.year();
     }, this);
 
-
     //determines how many days in each month, + how many days append and prepend each month.  Pushes those to the this.days array for rendering
-    this.daysOfMonth = ko.pureComputed(function() {
+    this.daysOfMonth = ko.computed(function() {
         var month = this.index();
-        var year = this.year();
+        var year = this.year.peek();
         var numberOfDays = new Date(year, month + 1, 0).getDate();
         var startDay = new Date(year, month, 1).getDay();
         var endDay = new Date(year, month, numberOfDays).getDay();
@@ -129,7 +127,6 @@ function AppViewModel() {
             this.days.push(l);
         }
     }, this);
-        
     
     //increments month when "+ button" is pushed. resets days array
     this.plusMonth = function() {
