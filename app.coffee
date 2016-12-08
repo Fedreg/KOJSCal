@@ -106,13 +106,8 @@ AppViewModel = ->
         return
 
     # Applies color to selected date
-    @checkSelected = (date) =>
-
-        if date.date is @dayInput() #and if  data.date == @dayInput()
-            return true
-
-        else
-            return false
+    @checkSelected = ko.pureComputed -> (date) =>
+        return 1 
 
     # Goes to date selected on input 
     @goToDate = =>

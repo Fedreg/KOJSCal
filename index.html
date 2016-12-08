@@ -30,19 +30,24 @@
             <div>Sa</div>
             <div id="daydiv" data-bind="foreach: days">
                 <!--ko if: $data.pre == true -->
-                <div data-bind="text: $data.date" style="background-color: #eee"></div>
+                <div data-bind="text: $data.date" style="color: #bbb"></div>
                 <!--/ko-->
                 <!--ko if: $data.current == true -->
-                <div data-bind="text: $data.date, click: $parent.datePicker, css: { is-selected: $parent.checkSelected($data) == true"} style="background-color: #fff"></div>
+                <div data-bind="text: $data.date, click: $parent.datePicker, css: { 'is-selected': $parent.checkSelected($data) === 1"}></div>
                 <!--/ko-->
                 <!--ko if: $data.post == true -->
-                <div data-bind="text: $data.date" style="background-color: #eee"></div>
+                <div data-bind="text: $data.date" style="color: #bbb"></div>
                 <!--/ko-->
             </div>
         </div>
     </div>
 </body>
 <style>
+
+    * {
+        transition: .5s ease-in;
+    }
+    
     #wrapper {
         padding: 12%;
         text-align: center;
@@ -53,7 +58,7 @@
     }
 
     .input-div { 
-        width: 50px;
+        width: 80px;
     }
 
     #cal-wrapper {
@@ -103,6 +108,7 @@
 
     .is-selected {
         background-color: lightblue;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
     }
 
     .button.button-clear {

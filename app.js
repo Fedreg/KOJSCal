@@ -88,15 +88,13 @@
         _this.yearInput(date.year);
       };
     })(this);
-    this.checkSelected = (function(_this) {
-      return function(date) {
-        if (date.date === _this.dayInput()) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-    })(this);
+    this.checkSelected = ko.pureComputed(function() {
+      return (function(_this) {
+        return function(date) {
+          return 1;
+        };
+      })(this);
+    });
     this.goToDate = (function(_this) {
       return function() {
         _this.days([]);
