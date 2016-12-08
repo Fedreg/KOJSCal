@@ -10,8 +10,15 @@
             <h1 data-bind="text: date"></h1>
         </div>
         <div style="display: block;">
-            <button data-bind="click : minusMonth" class="button-clear" id="l-arrow">-</button>
-            <button data-bind="click : plusMonth" class="button-clear" id="r-arrow">+</button>
+            <input placeholder="month" class="input-div" data-bind="textInput: monthInput">
+            <input placeholder="day" class="input-div" data-bind="textInput: dayInput">
+            <input placeholder="year" class="input-div" data-bind="textInput: yearInput">
+            <button data-bind="click : goToDate"  class="button button-clear">go</button>
+        </div>
+            
+        <div style="display: block;">
+            <button data-bind="click : minusMonth" class="button button-clear" id="l-arrow">-</button>
+            <button data-bind="click : plusMonth" class="button button-clear" id="r-arrow">+</button>
         </div>
         <div id="cal-wrapper">
             <div>Su</div>
@@ -26,7 +33,7 @@
                 <div data-bind="text: $data.date" style="background-color: #eee"></div>
                 <!--/ko-->
                 <!--ko if: $data.current == true -->
-                <div data-bind="text: $data.date" style="background-color: #fff"></div>
+                <div data-bind="text: $data.date, click: $parent.datePicker, css: { is-selected: $parent.checkSelected($data) == true"} style="background-color: #fff"></div>
                 <!--/ko-->
                 <!--ko if: $data.post == true -->
                 <div data-bind="text: $data.date" style="background-color: #eee"></div>
@@ -43,6 +50,10 @@
         flex-direction: column;
         justify-content: center;
         width: 100%;
+    }
+
+    .input-div { 
+        width: 50px;
     }
 
     #cal-wrapper {
@@ -90,9 +101,14 @@
         width: 20px;
     }
 
-    .button-clear {
+    .is-selected {
+        background-color: lightblue;
+    }
+
+    .button.button-clear {
         width: 20px;
         font-size: 2rem;
+        color: red;
     }
 
 </style>
