@@ -21,7 +21,6 @@ AppViewModel = ->
     @index = ko.observable(d.getMonth())
     @days = ko.observableArray([])
 
-
     #sets the date to display on top of calendar
     @date = ko.pureComputed(( ->
         a = @index()
@@ -39,19 +38,28 @@ AppViewModel = ->
         #iterate and push the number of days that prepend current month
         a = numberOfDays - startDay
         while a < numberOfDays
-            @days.push a
+            preDays =
+                date: a
+                pre: true
+            @days.push preDays
             a++
 
         #iterate and push the number of days in the month
         i = 1
         while i < numberOfDays + 1
-            @days.push i
+            currentDays =
+                date: i
+                current: true
+            @days.push currentDays
             i++
 
         #iterate and push the number of days that append current month
         l = 1
         while l < 7 - endDay
-            @days.push(l)
+            postDays =
+                date: l
+                post: true
+            @days.push postDays
             l++
         return
     ), this)

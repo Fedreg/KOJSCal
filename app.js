@@ -15,7 +15,7 @@
       return this.months()[a] + ' | ' + this.year();
     }), this);
     this.daysOfMonth = ko.computed((function() {
-      var a, endDay, i, l, month, numberOfDays, startDay, year;
+      var a, currentDays, endDay, i, l, month, numberOfDays, postDays, preDays, startDay, year;
       month = this.index();
       year = this.year.peek();
       numberOfDays = new Date(year, month + 1, 0).getDate();
@@ -23,17 +23,29 @@
       endDay = new Date(year, month, numberOfDays).getDay();
       a = numberOfDays - startDay;
       while (a < numberOfDays) {
-        this.days.push(a);
+        preDays = {
+          date: a,
+          pre: true
+        };
+        this.days.push(preDays);
         a++;
       }
       i = 1;
       while (i < numberOfDays + 1) {
-        this.days.push(i);
+        currentDays = {
+          date: i,
+          current: true
+        };
+        this.days.push(currentDays);
         i++;
       }
       l = 1;
       while (l < 7 - endDay) {
-        this.days.push(l);
+        postDays = {
+          date: l,
+          post: true
+        };
+        this.days.push(postDays);
         l++;
       }
     }), this);

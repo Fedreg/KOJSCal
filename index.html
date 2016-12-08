@@ -22,7 +22,15 @@
             <div>F</div>
             <div>Sa</div>
             <div id="daydiv" data-bind="foreach: days">
-                <div data-bind="text: $data"></div>
+                <!--ko if: $data.pre == true -->
+                <div data-bind="text: $data.date" style="background-color: #eee"></div>
+                <!--/ko-->
+                <!--ko if: $data.current == true -->
+                <div data-bind="text: $data.date" style="background-color: #fff"></div>
+                <!--/ko-->
+                <!--ko if: $data.post == true -->
+                <div data-bind="text: $data.date" style="background-color: #eee"></div>
+                <!--/ko-->
             </div>
         </div>
     </div>
@@ -57,7 +65,7 @@
     #daydiv {
         width: 100%;
         display: flex;
-        flex-wrap: wrap
+        flex-wrap: wrap;
     }
 
     #daydiv div {
@@ -65,6 +73,11 @@
         width: 14%;
         height: 50px;
         display: inline-block;
+    }
+
+    .out-of-range {
+        background-color: rgba(0,0,0,0.1);
+        color: red;
     }
 
     #table {
