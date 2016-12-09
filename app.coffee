@@ -24,12 +24,13 @@ AppViewModel = ->
     @monthInput = ko.observable(@months()[@index()])
     @dayInput = ko.observable(d.getDate())
 
-    console.log @year(), @index()
+
 
     # Sets the date to display on top of calendar.
     @date = ko.pureComputed =>
         a = @index()
         @months()[a] + ' | ' + @year()
+
 
     # Determines how many days in each month, + how many days append and prepend each month.  Pushes those to the @days array for rendering.
     @daysOfMonth = ko.computed =>
@@ -73,6 +74,7 @@ AppViewModel = ->
             l++
         return
     
+    
     # Increments month when "+ button" is pushed. resets days array.
     @plusMonth =  ->
         @days []
@@ -84,6 +86,7 @@ AppViewModel = ->
             @year(@year() + 1)
             @index(0)
         return
+
 
     # Decrements month when "- button" is pushed. resets days array.
     @minusMonth =  ->
@@ -99,30 +102,32 @@ AppViewModel = ->
     
 
     # Populate input date field.
-    @datePicker = (date, element) =>
+    @datePicker = (date) =>
         @monthInput @months()[date.month]
         @dayInput date.date
         @yearInput date.year
-        console.log date, element
         return
+
 
     # Applies color to selected date.
     @checkSelected = (date) =>
-        console.log "ya baby"
+        if date isnt null
+            if date.date is @dayInput()
+                true
 
-        if date.current == true then
-        return 0
 
-    # Goes to date selected on input 
+    # Goes to date selected on input/clears out existing calendar dates/calls for new dates to be inserted 
     @goToDate = =>
         
-        @year(Number(@yearInput()))
-        @index(@months.indexOf(@monthInput()))
+        @dayInput.valueHasMutated()  # How do I update the value so that @checkSelected sees this?
+        @year Number(@yearInput())
+        @index @months.indexOf(@monthInput())
         @days []
         @year.valueHasMutated()
         @index.valueHasMutated()
-        # @checkSelected(@dayInput())
         @daysOfMonth()
+            
+
 
     return
 

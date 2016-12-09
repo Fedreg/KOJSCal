@@ -10,7 +10,7 @@
             <h1 data-bind="text: date"></h1>
         </div>
         <div>
-            <h6> SELECT A DATE </h6>
+            <h7> ENTER A DATE </h7>
         <div style="display: block;">
             <input placeholder="month" class="input-div" data-bind="textInput: monthInput">
             <input placeholder="day" class="input-div" data-bind="textInput: dayInput">
@@ -35,7 +35,7 @@
                 <div data-bind="text: $data.date" style="color: #bbb"></div>
                 <!--/ko-->
                 <!--ko if: $data.current == true -->
-                <div data-bind="text: $data.date, click: $parent.datePicker, css: { 'is-selected': $parent.checkSelected($data) === true"}></div>
+                <div data-bind="text: $data.date, click: $parent.datePicker, css: { 'is-selected': $parent.checkSelected($data) === true}"></div>
                 <!--/ko-->
                 <!--ko if: $data.post == true -->
                 <div data-bind="text: $data.date" style="color: #bbb"></div>
@@ -46,17 +46,13 @@
 </body>
 <style>
 
-    * {
-        transition: .5s ease-in;
-    }
-    
-    
     #wrapper {
         padding: 12%;
         text-align: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         width: 100%;
     }
     
@@ -74,6 +70,7 @@
         align-items: center;
         align-content: stretch;
         width: 100%;
+        max-width: 500px;
         height: 100px;
         text-align: center;
     }
@@ -92,6 +89,7 @@
     }
 
     #daydiv div {
+        transition: 1s linear;
         flex-basis: auto;
         width: 14%;
         height: 50px;
@@ -113,8 +111,7 @@
     }
 
     .is-selected {
-        background-color: lightblue;
-        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        border: .5px solid red;
     }
 
     .button.button-clear {

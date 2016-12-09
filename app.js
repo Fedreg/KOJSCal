@@ -12,7 +12,6 @@
     this.yearInput = ko.observable(this.year());
     this.monthInput = ko.observable(this.months()[this.index()]);
     this.dayInput = ko.observable(d.getDate());
-    console.log(this.year(), this.index());
     this.date = ko.pureComputed((function(_this) {
       return function() {
         var a;
@@ -82,24 +81,24 @@
       }
     };
     this.datePicker = (function(_this) {
-      return function(date, element) {
+      return function(date) {
         _this.monthInput(_this.months()[date.month]);
         _this.dayInput(date.date);
         _this.yearInput(date.year);
-        console.log(date, element);
       };
     })(this);
     this.checkSelected = (function(_this) {
       return function(date) {
-        console.log("ya baby");
-        if (date.current === true) {
-
+        if (date !== null) {
+          if (date.date === _this.dayInput()) {
+            return true;
+          }
         }
-        return 0;
       };
     })(this);
     this.goToDate = (function(_this) {
       return function() {
+        _this.dayInput.valueHasMutated();
         _this.year(Number(_this.yearInput()));
         _this.index(_this.months.indexOf(_this.monthInput()));
         _this.days([]);
