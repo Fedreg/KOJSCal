@@ -5,13 +5,42 @@
   d = new Date();
 
   AppViewModel = function() {
+    var appt1, appt2, appt3, appt4;
     this.months = ko.observableArray(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+    this.appointments = ko.observableArray([
+      appt1 = {
+        month: 8,
+        day: 24,
+        year: 1976,
+        desc: "Fed's birthday"
+      }, appt2 = {
+        month: 12,
+        day: 25,
+        year: 2016,
+        desc: "Christmas"
+      }, appt3 = {
+        month: 12,
+        day: 31,
+        year: 2016,
+        desc: "New Year's Eve"
+      }, appt4 = {
+        month: 1,
+        day: 1,
+        year: 2017,
+        desc: "New Year's Day"
+      }
+    ]);
     this.year = ko.observable(d.getFullYear());
     this.index = ko.observable(d.getMonth());
     this.days = ko.observableArray([]);
     this.yearInput = ko.observable(this.year());
     this.monthInput = ko.observable(this.months()[this.index()]);
     this.dayInput = ko.observable(d.getDate());
+    this.newTaskDay = ko.observable();
+    this.newTaskMonth = ko.observable();
+    this.newTaskYear = ko.observable();
+    this.newTaskDescription = ko.observable();
+    console.log(this.appointments());
     this.date = ko.pureComputed((function(_this) {
       return function() {
         var a;
@@ -107,6 +136,20 @@
         return _this.daysOfMonth();
       };
     })(this);
+    this.addEvent = function() {
+      var appt;
+      appt = {
+        month: Number(this.newTaskMonth()),
+        day: Number(this.newTaskDay()),
+        year: Number(this.newTaskYear()),
+        desc: this.newTaskDescription()
+      };
+      this.appointments.unshift(appt);
+      this.newTaskMonth("");
+      this.newTaskDay("");
+      this.newTaskYear("");
+      return this.newTaskDescription("");
+    };
   };
 
   ko.applyBindings(new AppViewModel);

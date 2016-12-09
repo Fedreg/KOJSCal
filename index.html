@@ -43,6 +43,18 @@
             </div>
         </div>
     </div>
+    <h6 id="task-header">CREATE A NEW EVENT</h6>
+    <div id="new-tasks">
+        <input placeholder="MM" data-bind="textInput: newTaskMonth" style="width: 30px">
+        <input placeholder="DD" data-bind="textInput: newTaskDay" style="width: 30px">
+        <input placeholder="YYYY" data-bind="textInput: newTaskYear" style="width: 40px">
+        <input placeholder="Description" data-bind="textInput: newTaskDescription">
+        <button class="button button-clear" data-bind="click: addEvent">Add</div>
+    <div id="appointments">
+        <ul id="tasks-div" data-bind="foreach: appointments">
+            <li data-bind="text: $data.desc"></li>
+        </ul>
+    </div>
 </body>
 <style>
 
@@ -118,6 +130,21 @@
         width: 20px;
         font-size: 2rem;
         color: red;
+    }
+
+    #task-header {
+        margin-top: 180px;
+    }
+
+    #tasks-div {
+        max-width: 500px;
+        color: #000;
+        text-align: left;
+    }
+
+    #appointments {
+        display: block;
+        font-size: 1.5em;
     }
 
 </style>

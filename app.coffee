@@ -17,13 +17,43 @@ AppViewModel = ->
         'November'
         'December'
     ])
+    @appointments = ko.observableArray([
+        appt1 =
+            month: 8
+            day: 24
+            year: 1976
+            desc: "Fed's birthday"
+
+        appt2 =
+            month: 12
+            day: 25
+            year: 2016
+            desc: "Christmas"
+
+        appt3 =
+            month: 12
+            day: 31
+            year: 2016
+            desc: "New Year's Eve"
+
+        appt4 =
+            month: 1
+            day: 1
+            year: 2017
+            desc: "New Year's Day"
+    ])
     @year = ko.observable(d.getFullYear())
     @index = ko.observable(d.getMonth())
     @days = ko.observableArray([])
     @yearInput = ko.observable(@year())
     @monthInput = ko.observable(@months()[@index()])
     @dayInput = ko.observable(d.getDate())
+    @newTaskDay = ko.observable()
+    @newTaskMonth = ko.observable()
+    @newTaskYear  = ko.observable()
+    @newTaskDescription = ko.observable()
 
+    console.log @appointments()
 
 
     # Sets the date to display on top of calendar.
@@ -128,6 +158,20 @@ AppViewModel = ->
         @daysOfMonth()
             
 
+    # Adds new event to Appointments array.
+    @addEvent = ->
+        appt =
+            month: Number @newTaskMonth()
+            day: Number @newTaskDay()
+            year: Number @newTaskYear()
+            desc: @newTaskDescription()
+            
+        @appointments.unshift appt
+
+        @newTaskMonth("")
+        @newTaskDay("")
+        @newTaskYear("")
+        @newTaskDescription("")
 
     return
 
