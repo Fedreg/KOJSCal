@@ -13,16 +13,16 @@ AppViewModel = ->
         'July'
         'August'
         'September'
-        'Ocotober'
+        'October'
         'November'
         'December'
     ])
     @year = ko.observable(d.getFullYear())
     @index = ko.observable(d.getMonth())
     @days = ko.observableArray([])
-    @monthInput = ko.observable()
-    @dayInput = ko.observable()
-    @yearInput = ko.observable()
+    @yearInput = ko.observable(@year())
+    @monthInput = ko.observable(@months()[@index()])
+    @dayInput = ko.observable(d.getDate())
 
     console.log @year(), @index()
 
@@ -98,25 +98,31 @@ AppViewModel = ->
         return
     
 
-    # Highlight clicked calendar date / populate input date field
+    # Populate input date field.
     @datePicker = (date, element) =>
         @monthInput @months()[date.month]
         @dayInput date.date
         @yearInput date.year
+        console.log date, element
         return
 
-    # Applies color to selected date
-    @checkSelected = ko.pureComputed -> (date) =>
-        return 1 
+    # Applies color to selected date.
+    @checkSelected = (date) =>
+        console.log "ya baby"
+
+        if date.current == true then
+        return 0
 
     # Goes to date selected on input 
     @goToDate = =>
-        @days []
+        
         @year(Number(@yearInput()))
         @index(@months.indexOf(@monthInput()))
-        @checkSelected(@dayInput())
+        @days []
+        @year.valueHasMutated()
+        @index.valueHasMutated()
+        # @checkSelected(@dayInput())
         @daysOfMonth()
-        
 
     return
 

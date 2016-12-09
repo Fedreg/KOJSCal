@@ -9,6 +9,8 @@
         <div>
             <h1 data-bind="text: date"></h1>
         </div>
+        <div>
+            <h6> SELECT A DATE </h6>
         <div style="display: block;">
             <input placeholder="month" class="input-div" data-bind="textInput: monthInput">
             <input placeholder="day" class="input-div" data-bind="textInput: dayInput">
@@ -33,7 +35,7 @@
                 <div data-bind="text: $data.date" style="color: #bbb"></div>
                 <!--/ko-->
                 <!--ko if: $data.current == true -->
-                <div data-bind="text: $data.date, click: $parent.datePicker, css: { 'is-selected': $parent.checkSelected($data) === 1"}></div>
+                <div data-bind="text: $data.date, click: $parent.datePicker, css: { 'is-selected': $parent.checkSelected($data) === true"}></div>
                 <!--/ko-->
                 <!--ko if: $data.post == true -->
                 <div data-bind="text: $data.date" style="color: #bbb"></div>
@@ -48,6 +50,7 @@
         transition: .5s ease-in;
     }
     
+    
     #wrapper {
         padding: 12%;
         text-align: center;
@@ -56,9 +59,12 @@
         justify-content: center;
         width: 100%;
     }
+    
 
     .input-div { 
         width: 80px;
+        background: none;
+        border: .5px solid #bbb;
     }
 
     #cal-wrapper {

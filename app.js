@@ -5,13 +5,13 @@
   d = new Date();
 
   AppViewModel = function() {
-    this.months = ko.observableArray(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Ocotober', 'November', 'December']);
+    this.months = ko.observableArray(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
     this.year = ko.observable(d.getFullYear());
     this.index = ko.observable(d.getMonth());
     this.days = ko.observableArray([]);
-    this.monthInput = ko.observable();
-    this.dayInput = ko.observable();
-    this.yearInput = ko.observable();
+    this.yearInput = ko.observable(this.year());
+    this.monthInput = ko.observable(this.months()[this.index()]);
+    this.dayInput = ko.observable(d.getDate());
     console.log(this.year(), this.index());
     this.date = ko.pureComputed((function(_this) {
       return function() {
@@ -86,21 +86,25 @@
         _this.monthInput(_this.months()[date.month]);
         _this.dayInput(date.date);
         _this.yearInput(date.year);
+        console.log(date, element);
       };
     })(this);
-    this.checkSelected = ko.pureComputed(function() {
-      return (function(_this) {
-        return function(date) {
-          return 1;
-        };
-      })(this);
-    });
+    this.checkSelected = (function(_this) {
+      return function(date) {
+        console.log("ya baby");
+        if (date.current === true) {
+
+        }
+        return 0;
+      };
+    })(this);
     this.goToDate = (function(_this) {
       return function() {
-        _this.days([]);
         _this.year(Number(_this.yearInput()));
         _this.index(_this.months.indexOf(_this.monthInput()));
-        _this.checkSelected(_this.dayInput());
+        _this.days([]);
+        _this.year.valueHasMutated();
+        _this.index.valueHasMutated();
         return _this.daysOfMonth();
       };
     })(this);
