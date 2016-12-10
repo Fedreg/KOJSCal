@@ -3,6 +3,7 @@
     <title>KOJS Calendar Component</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.2/milligram.min.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
     <div id="wrapper">
@@ -45,109 +46,19 @@
     </div>
     <h6 id="task-header">CREATE A NEW EVENT</h6>
     <div id="new-tasks">
-        <input placeholder="MM" data-bind="textInput: newTaskMonth" style="width: 30px">
-        <input placeholder="DD" data-bind="textInput: newTaskDay" style="width: 30px">
-        <input placeholder="YYYY" data-bind="textInput: newTaskYear" style="width: 40px">
-        <input placeholder="Description" data-bind="textInput: newTaskDescription">
-        <button class="button button-clear" data-bind="click: addEvent">Add</div>
+        <input class="input-div" placeholder="MM" data-bind="textInput: newTaskMonth" style="width: 70px">
+        <input class="input-div" placeholder="DD" data-bind="textInput: newTaskDay" style="width: 70px">
+        <input class="input-div" placeholder="YYYY" data-bind="textInput: newTaskYear" style="width: 100px">
+        <input class="input-div" placeholder="Description" data-bind="textInput: newTaskDescription">
     <div id="appointments">
+        <button id="add-btn" class="button button-clear" data-bind="click: addEvent">Add</div>
         <ul id="tasks-div" data-bind="foreach: appointments">
-            <li data-bind="text: $data.desc"></li>
+            <!--ko if: $data.month == $parent.index() + 1 -->
+            <li data-bind="text: $data.desc + '......' + $data.month + ' / ' + $data.day"></li>
+            <!--/ko-->
         </ul>
     </div>
 </body>
-<style>
-
-    #wrapper {
-        padding: 12%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-    
-
-    .input-div { 
-        width: 80px;
-        background: none;
-        border: .5px solid #bbb;
-    }
-
-    #cal-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        align-content: stretch;
-        width: 100%;
-        max-width: 500px;
-        height: 100px;
-        text-align: center;
-    }
-
-    #cal-header div {
-        flex-basis: auto;
-        width: 14%;
-        height: 50px;
-        display: inline-block;
-    }
-    #daydiv {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        color: red;
-    }
-
-    #daydiv div {
-        transition: 1s linear;
-        flex-basis: auto;
-        width: 14%;
-        height: 50px;
-        display: inline-block;
-    }
-
-    .out-of-range {
-        background-color: rgba(0,0,0,0.1);
-        color: red;
-    }
-
-    #table {
-        display: block;
-    }
-    
-    #table td {
-        display: inline-block;
-        width: 20px;
-    }
-
-    .is-selected {
-        border: .5px solid red;
-    }
-
-    .button.button-clear {
-        width: 20px;
-        font-size: 2rem;
-        color: red;
-    }
-
-    #task-header {
-        margin-top: 180px;
-    }
-
-    #tasks-div {
-        max-width: 500px;
-        color: #000;
-        text-align: left;
-    }
-
-    #appointments {
-        display: block;
-        font-size: 1.5em;
-    }
-
-</style>
 
     <script src=app.js type="text/javascript"></script>
 

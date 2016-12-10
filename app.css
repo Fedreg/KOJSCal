@@ -1,0 +1,104 @@
+
+    body {
+        background-color: #fff;
+        }
+
+    #wrapper {
+        margin: 5% auto;
+        padding: 5%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        border: 1px solid #444;
+        box-shadow: 10px 10px 25px rgba(0,0,0,0.25);
+    }
+    
+
+    .input-div { 
+        width: 80px;
+        background: none;
+        border: .5px solid #bbb;
+    }
+
+    #cal-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: stretch;
+        width: 100%;
+        max-width: 500px;
+        height: 100px;
+        text-align: center;
+    }
+
+    #cal-header div {
+        flex-basis: auto;
+        width: 14%;
+        height: 50px;
+        display: inline-block;
+    }
+    #daydiv {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        color: red;
+        height: 250px;
+    }
+
+    #daydiv div {
+        transition: 1s linear;
+        flex-basis: auto;
+        width: 14%;
+        height: 16%;
+        display: inline-block;
+    }
+
+    .out-of-range {
+        background-color: rgba(0,0,0,0.1);
+        color: red;
+    }
+
+    #table {
+        display: block;
+    }
+    
+    #table td {
+        display: inline-block;
+        width: 20px;
+    }
+
+    .is-selected {
+        border: .5px solid red;
+    }
+
+    .button.button-clear {
+        width: 20px;
+        font-size: 2rem;
+        color: red;
+    }
+
+    #task-header {
+        margin-top: 180px;
+    }
+
+    #tasks-div {
+        max-width: 500px;
+        color: #000;
+        text-align: left;
+        font-size: 1em;
+        text-transform: uppercase;
+    }
+
+    #appointments {
+        display: block;
+    }
+
+    #add-btn {
+        padding: 0;
+        margin-left: -6rem;
+    }
+

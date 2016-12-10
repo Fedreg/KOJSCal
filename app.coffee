@@ -53,7 +53,6 @@ AppViewModel = ->
     @newTaskYear  = ko.observable()
     @newTaskDescription = ko.observable()
 
-    console.log @appointments()
 
 
     # Sets the date to display on top of calendar.
@@ -102,7 +101,6 @@ AppViewModel = ->
                 year: year
             @days.push postDays
             l++
-        return
     
     
     # Increments month when "+ button" is pushed. resets days array.
@@ -115,7 +113,6 @@ AppViewModel = ->
         else if @index() == 11
             @year(@year() + 1)
             @index(0)
-        return
 
 
     # Decrements month when "- button" is pushed. resets days array.
@@ -128,7 +125,6 @@ AppViewModel = ->
         else if @index() == 0
             @year(@year() - 1)
             @index(11)
-        return
     
 
     # Populate input date field.
@@ -136,7 +132,6 @@ AppViewModel = ->
         @monthInput @months()[date.month]
         @dayInput date.date
         @yearInput date.year
-        return
 
 
     # Applies color to selected date.
@@ -144,19 +139,24 @@ AppViewModel = ->
         if date isnt null
             if date.date is @dayInput()
                 true
-
-
-    # Goes to date selected on input/clears out existing calendar dates/calls for new dates to be inserted 
+    
+    # Goes to date selected on input/clears out existing calendar dates/calls for new dates to be inserted. 
     @goToDate = =>
         
-        @dayInput.valueHasMutated()  # How do I update the value so that @checkSelected sees this?
         @year Number(@yearInput())
         @index @months.indexOf(@monthInput())
         @days []
         @year.valueHasMutated()
         @index.valueHasMutated()
-        @daysOfMonth()
+        
+        # Pass @checkSelected a new date object.
+        date =
+            date: Number(@dayInput())
             
+        # Not Working!!!
+        #checkSelected date
+        console.log date
+
 
     # Adds new event to Appointments array.
     @addEvent = ->

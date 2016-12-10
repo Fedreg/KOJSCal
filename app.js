@@ -40,7 +40,6 @@
     this.newTaskMonth = ko.observable();
     this.newTaskYear = ko.observable();
     this.newTaskDescription = ko.observable();
-    console.log(this.appointments());
     this.date = ko.pureComputed((function(_this) {
       return function() {
         var a;
@@ -50,7 +49,7 @@
     })(this));
     this.daysOfMonth = ko.computed((function(_this) {
       return function() {
-        var a, currentDays, endDay, i, l, month, numberOfDays, postDays, preDays, startDay, year;
+        var a, currentDays, endDay, i, l, month, numberOfDays, postDays, preDays, results, startDay, year;
         month = _this.index();
         year = _this.year.peek();
         numberOfDays = new Date(year, month + 1, 0).getDate();
@@ -79,6 +78,7 @@
           i++;
         }
         l = 1;
+        results = [];
         while (l < 7 - endDay) {
           postDays = {
             date: l,
@@ -87,33 +87,34 @@
             year: year
           };
           _this.days.push(postDays);
-          l++;
+          results.push(l++);
         }
+        return results;
       };
     })(this));
     this.plusMonth = function() {
       this.days([]);
       if (this.index() < 11) {
-        this.index(this.index() + 1);
+        return this.index(this.index() + 1);
       } else if (this.index() === 11) {
         this.year(this.year() + 1);
-        this.index(0);
+        return this.index(0);
       }
     };
     this.minusMonth = function() {
       this.days([]);
       if (this.index() > 0) {
-        this.index(this.index() - 1);
+        return this.index(this.index() - 1);
       } else if (this.index() === 0) {
         this.year(this.year() - 1);
-        this.index(11);
+        return this.index(11);
       }
     };
     this.datePicker = (function(_this) {
       return function(date) {
         _this.monthInput(_this.months()[date.month]);
         _this.dayInput(date.date);
-        _this.yearInput(date.year);
+        return _this.yearInput(date.year);
       };
     })(this);
     this.checkSelected = (function(_this) {
@@ -127,13 +128,16 @@
     })(this);
     this.goToDate = (function(_this) {
       return function() {
-        _this.dayInput.valueHasMutated();
+        var date;
         _this.year(Number(_this.yearInput()));
         _this.index(_this.months.indexOf(_this.monthInput()));
         _this.days([]);
         _this.year.valueHasMutated();
         _this.index.valueHasMutated();
-        return _this.daysOfMonth();
+        date = {
+          date: Number(_this.dayInput())
+        };
+        return console.log(date);
       };
     })(this);
     this.addEvent = function() {
