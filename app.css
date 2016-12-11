@@ -1,6 +1,6 @@
 
     body {
-        background-color: #fff;
+        background-color: #999;
         }
 
     #wrapper {
@@ -11,9 +11,12 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background-color: #1f2840;
+        color: #fff;
         width: 50%;
-        border: 1px solid #444;
-        box-shadow: 10px 10px 25px rgba(0,0,0,0.25);
+        border: 1px solid #000;
+        box-shadow: 10px 10px 50px rgba(0,0,0,0.35),
+        -10px -10px 50px rgba(0,0,0,0.35);
     }
     
 
@@ -21,6 +24,8 @@
         width: 80px;
         background: none;
         border: .5px solid #bbb;
+        border-radius: 0;
+        color: #fff;
     }
 
     #cal-wrapper {
@@ -45,12 +50,11 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        color: red;
+        color: cyan;
         height: 250px;
     }
 
     #daydiv div {
-        transition: 1s linear;
         flex-basis: auto;
         width: 14%;
         height: 16%;
@@ -59,7 +63,7 @@
 
     .out-of-range {
         background-color: rgba(0,0,0,0.1);
-        color: red;
+        color: cyan;
     }
 
     #table {
@@ -72,13 +76,13 @@
     }
 
     .is-selected {
-        border: .5px solid red;
+        border: .5px solid cyan;
     }
 
     .button.button-clear {
         width: 20px;
         font-size: 2rem;
-        color: red;
+        color: cyan;
     }
 
     #task-header {
@@ -87,7 +91,7 @@
 
     #tasks-div {
         max-width: 500px;
-        color: #000;
+        color: #fff;
         text-align: left;
         font-size: 1em;
         text-transform: uppercase;
@@ -98,7 +102,7 @@
     }
 
     #add-btn {
-        padding: 0;
-        margin-left: -6rem;
+        width: 100px;
+        margin-left: -5rem;
     }
 
