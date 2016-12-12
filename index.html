@@ -13,7 +13,7 @@
         <div>
             <h7> ENTER A DATE </h7>
         <div style="display: block;">
-            <input placeholder="month" class="input-div" data-bind="textInput: monthInput">
+            <select data-bind="options: months, value: monthInput" class="input-select">
             <input placeholder="day" class="input-div" data-bind="textInput: dayInput">
             <input placeholder="year" class="input-div" data-bind="textInput: yearInput">
             <button data-bind="click : goToDate"  class="button button-clear">go</button>
